@@ -36,7 +36,6 @@ def urlparse(url):
       ParseResult(scheme='foo', netloc='example.com:8042', path='/over/there', params='', query='name=ferret', fragment='nose')
 
     '''
-    url = url.lower()
     scheme = netloc = path = params = query = fragment = ''
 
     return ParseResult(scheme, netloc, path, params, query, fragment)

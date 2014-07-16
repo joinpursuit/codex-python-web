@@ -15,6 +15,12 @@ class TestFetchUrlarse(unittest.TestCase):
         b = request.urlparse(url).scheme
         self.assertEqual(a, b)
 
+    def test_scheme_case(self):
+        url = 'FOO://example.com'
+        a = fetch.urlparse(url).scheme
+        b = request.urlparse(url).scheme
+        self.assertEqual(a, b)
+
     def test_no_scheme_but_port(self):
         url = '//example.com:8042'
         a = fetch.urlparse(url).scheme
@@ -32,6 +38,13 @@ class TestFetchUrlarse(unittest.TestCase):
         a = fetch.urlparse(url).netloc
         b = request.urlparse(url).netloc
         self.assertEqual(a, b)
+
+    def test_netloc_case(self):
+        url = 'foo://EXAMPLE.com'
+        a = fetch.urlparse(url).netloc
+        b = request.urlparse(url).netloc
+        self.assertEqual(a, b)
+
 
     def test_netloc_no_scheme(self):
         url = '//example.com'
