@@ -1,4 +1,4 @@
-codex_python-web
-================
+CodeX: Python and the Web
+=========================
 
-Working repo for the Coalition for Queens' CodeX series.
+Working repo for the (Coalition for Queens')[www.coalitionforqueens.org] CodeX series.
