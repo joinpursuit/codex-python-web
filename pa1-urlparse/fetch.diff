@@ -1,0 +1,159 @@
+diff --git a/urlparse/fetch.py b/urlparse/fetch.py
+index a912a70..df319fe 100644
+--- a/urlparse/fetch.py
++++ b/urlparse/fetch.py
+@@ -1,22 +1,43 @@
+-#!/usr/bin/env python
+-
++#
++# Assignment: Write a function to parse URLs.
++# 
++# Fill in the body of the 'urlparse()' function in this module.  If you wish,
++# you may define and use additional helper functions; these generally will make
++# your code clearer.
++#
++# To test your solution, use the unit test script provided along with this file.
++# The unit test script will import your version of this module, and test your
++# solution by running it with specific inputs and checking the answers.  It will
++# tell you if all the tests produce the expected results or not.
++#
+ 
+ from collections import namedtuple
+ from urllib import request
+ 
++ParseResult = namedtuple('ParseResult', 'scheme, netloc, path, params, query, fragment')
++
+ 
+-# urlparse() parses a URL into its components. Below is an example URL with its
+-# components listed by name:
+-#
+-#    foo://example.com:8042/over/there?name=ferret#nose
+-#    \_/   \______________/\_________/ \_________/ \__/
+-#     |           |            |            |        |
+-#    scheme     authority     path        query   fragment
+-#
+-# For details, see: http://tools.ietf.org/html/rfc3986#section-3.1
+ def urlparse(url):
++    '''
++    Parses a URL and returns a 'ParseResult' of its components.
++
++    Below is an example URL with its components listed by name:
++
++       foo://example.com:8042/over/there?name=ferret#nose
++       \_/   \______________/\_________/ \_________/ \__/
++        |           |            |            |        |
++       scheme     authority     path        query   fragment
++
++    For details, see: http://tools.ietf.org/html/rfc3986#section-3.1
++
++    For example,
++
++      >>> urlparse('foo://example.com:8042/over/there?name=ferret#nose')
++      ParseResult(scheme='foo', netloc='example.com:8042', path='/over/there', params='', query='name=ferret', fragment='nose')
++
++    '''
+     url = url.lower()
+-    scheme = netloc = path = query = fragment = ''
++    scheme = netloc = path = params = query = fragment = ''
+ 
+     # Handle scheme
+     i = url.find(':')
+@@ -39,27 +60,30 @@ def urlparse(url):
+     if len(url) > 0 and url[0] == '?':
+         query, fragment = _parse_query(url)
+ 
+-    ParseResult = namedtuple('ParseResult', 'scheme, netloc, path, params, query, fragment')
+-    return ParseResult(scheme, netloc, path, '', query, fragment)
++    return ParseResult(scheme, netloc, path, params, query, fragment)
+ 
+ 
+-# "Scheme names consist of a sequence of characters beginning with a letter
+-# and followed by any combination of letters, digits, plus ("+"), period
+-# ("."), or hyphen ("-")."
+ def _parse_scheme(url, i):
+-    # Check for port
++    '''
++    "Scheme names consist of a sequence of characters beginning with a letter
++    and followed by any combination of letters, digits, plus ("+"), period
++    ("."), or hyphen ("-")."
++    Check for port
++    '''
+     if url[i+1].isdigit():
+         scheme = ''
+     else:
+         scheme = url[:i]
+         url = url[i+1:]
+-    return (url, scheme)
++    return url, scheme
+ 
+ 
+-# "The authority component is preceded by a double slash ("//") and is
+-# terminated by the next slash ("/"), question mark ("?"), or number sign
+-# ("#") character, or by the end of the URI.
+ def _parse_netloc(url):
++    '''
++    "The authority component is preceded by a double slash ("//") and is
++    terminated by the next slash ("/"), question mark ("?"), or number sign
++    ("#") character, or by the end of the URI.
++    '''
+     url = url[2:]
+     minI = 9999
+     for c in '/?#':
+@@ -75,9 +99,11 @@ def _parse_netloc(url):
+     return (url, netloc)
+ 
+ 
+-# "The path is terminated by the first question mark ("?") or number sign
+-# ("#") character, or by the end of the URI."
+ def _parse_path(url):
++    '''
++    "The path is terminated by the first question mark ("?") or number sign
++    ("#") character, or by the end of the URI."
++    '''
+     minI = 9999
+     for c in '?#':
+         i = url.find(c, 1)
+@@ -89,7 +115,7 @@ def _parse_path(url):
+     else:
+         path = url
+         url = ''
+-    return (url, path)
++    return url, path
+ 
+ 
+ def _parse_port(url, i):
+@@ -98,13 +124,15 @@ def _parse_port(url, i):
+     return url[:i]
+ 
+ 
+-# "The query component is indicated by the first question mark ("?")
+-# character and terminated by a number sign ("#") character or by the end
+-# of the URI.
+-#
+-# "A fragment identifier component is indicated by the presence of a number
+-# sign ("#") character and terminated by the end of the URI."
+ def _parse_query(url):
++    '''
++    "The query component is indicated by the first question mark ("?")
++    character and terminated by a number sign ("#") character or by the end
++    of the URI."
++
++    "A fragment identifier component is indicated by the presence of a number
++    sign ("#") character and terminated by the end of the URI."
++    '''
+     # +1 to remove "?"
+     query = url[1:]
+     j = query.find('#', 1)
+@@ -114,11 +142,6 @@ def _parse_query(url):
+         query = query[:j]
+     else:
+         fragment = ''
+-    return (query, fragment)
++    return query, fragment
+ 
+ 
+-if __name__ == '__main__':
+-    url = 'foo://example.com:8042/over/there?name=ferret#nose'
+-    print(url)
+-    print(request.urlparse(url))
+-    print(urlparse(url))
