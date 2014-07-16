@@ -45,7 +45,6 @@ class TestFetchUrlarse(unittest.TestCase):
         b = request.urlparse(url).netloc
         self.assertEqual(a, b)
 
-
     def test_netloc_no_scheme(self):
         url = '//example.com'
         a = fetch.urlparse(url).netloc
