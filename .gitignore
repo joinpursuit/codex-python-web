@@ -1,6 +1,11 @@
 # OSX
 *.DS_Store
 
+# vim
+*~
+*.swp
+*.swo
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
