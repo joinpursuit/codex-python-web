@@ -14,9 +14,12 @@ See RFC2616 for the protocol specification:
 # find the seven sections marked FIXME and replace the FIXME comments with
 # code.
 #
-# To test your code, you can do the following:
-# - Import your module in the REPL and call the functions by hand.
-# - Run the unit tests, with 'python3 html-test.py'.
+# Follow these instructions:
+# - Download this file, html.py, into a new directory.
+# - Download html-test.py into the same directory.  This contains unit tests.
+# - Edit html.py until you have replaced the FIXME's.
+# - Run tests in a command/terminal window with, 'python3 html-test.py'.
+# - Fix your bugs until all tests pass.
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
