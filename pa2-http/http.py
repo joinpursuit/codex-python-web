@@ -17,6 +17,7 @@ See RFC2616 for the protocol specification:
 # Follow these instructions:
 # - Download this file, html.py, into a new directory.
 # - Download html-test.py into the same directory.  This contains unit tests.
+# - Read the code that's already been written, and understand what it does.
 # - Edit html.py until you have replaced the FIXME's.
 # - Run tests in a command/terminal window with, 'python3 html-test.py'.
 # - Fix your bugs until all tests pass.
